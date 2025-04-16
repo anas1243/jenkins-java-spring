@@ -4,7 +4,6 @@ pipeline {
             maven 'M398'
         }
     stages {
-
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/anas1243/jenkins-java-spring.git'
@@ -14,6 +13,11 @@ pipeline {
         stage('Test'){
             steps{
                 sh 'mvn test'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                sh 'java -jar target/hello-demo-*.jar'
             }
         }
     }
