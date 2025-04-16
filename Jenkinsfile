@@ -1,10 +1,10 @@
 pipeline {
     agent any
-
-    stages {
-        tools {
-            mvn 'M398'
+    tools {
+            maven 'M398'
         }
+    stages {
+
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/anas1243/jenkins-java-spring.git'
