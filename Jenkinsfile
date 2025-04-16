@@ -8,11 +8,7 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh '''
-                    if [[ -n $(docker ps -qf name=spring-app) ]]; then
-                        docker stop spring-app && docker rm spring-app
-                    fi    
-                    '''
+                sh '[[ -n "$(docker ps -qf name=spring-app)" ]] && docker stop spring-app && docker rm spring-app'
                 sh 'docker run --name spring-app -p 80:80 -d anas1243/spring-app'
             }
         }
