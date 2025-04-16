@@ -7,17 +7,12 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/anas1243/jenkins-java-spring.git'
-                sh 'mvn clean package -DskipTests=true'
-            }
-        }
-        stage('Test'){
-            steps{
-                sh 'mvn test'
+                sh 'docker build -f spring-Dockerfile -t anas1243/spring-app .'
             }
         }
         stage('Deploy'){
             steps{
-                sh 'java -jar target/hello-demo-*.jar'
+                sh 'docker run --name spring-app -p 80:80 -d anas1243/spring-app'
             }
         }
     }
