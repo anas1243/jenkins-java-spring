@@ -8,9 +8,18 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh '[ -n "$(docker ps -qf name=spring-app)" ] && docker stop spring-app && docker rm spring-app'
-                sh '[ -n "$(docker ps -aqf name=spring-app)" ] && docker rm spring-app'
-                sh 'docker run --name spring-app -p 80:80 -d --restart=always anas1243/spring-app'
+                sh '''
+                CONTAINER_NAME=spring-app
+                # Check if a container with the same name exists (running or exited)
+                if docker ps -aqf name="$container_name"; then
+                echo "Removing existing container: $container_name"
+                docker rm -f "$container_name"  # -f forces removal if it's running
+                fi
+
+                # Run the new container
+                docker run --name spring-app -p 80:80 -d --restart=always anas1243/spring-app" 
+                echo "New container '$container_name' is running."
+                '''
             }
         }
     }
