@@ -11,14 +11,14 @@ pipeline {
                 sh '''
                 CONTAINER_NAME=spring-app
                 # Check if a container with the same name exists (running or exited)
-                if docker ps -aqf name="$container_name"; then
-                echo "Removing existing container: $container_name"
-                docker rm -f "$container_name"  # -f forces removal if it's running
+                if docker ps -aqf name="$CONTAINER_NAME"; then
+                echo "Removing existing container: $CONTAINER_NAME"
+                docker rm -f "$CONTAINER_NAME"  # -f forces removal if it's running
                 fi
 
                 # Run the new container
                 docker run --name spring-app -p 80:80 -d --restart=always anas1243/spring-app" 
-                echo "New container '$container_name' is running."
+                echo "New container '$CONTAINER_NAME' is running."
                 '''
             }
         }
