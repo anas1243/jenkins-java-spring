@@ -19,7 +19,10 @@ pipeline {
             when {
                 expression { "${params.RUN_TEST}" == 'true' }
             }
-            sh 'echo "Running some tests .. " '
+            steps{
+                sh 'echo "Running some tests ... "'
+            }
+            
         }
     }
 }
