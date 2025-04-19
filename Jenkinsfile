@@ -15,5 +15,11 @@ pipeline {
                 '''
             }
         }
+        stage('test'){
+            when {
+                expression { "${params.RUN_TEST}" == 'true' }
+            }
+            sh 'echo "Running some tests .. " '
+        }
     }
 }
